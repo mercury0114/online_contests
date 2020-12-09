@@ -4,3 +4,4 @@ contests/*
 *.o
 __pycache__/*
 *.swp
+final.cpp

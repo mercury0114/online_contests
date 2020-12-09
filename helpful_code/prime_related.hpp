@@ -21,7 +21,7 @@ VB Sieve(const UI up_to) {
 // K = repeat (see comments below)
 class PrimeChecker {
 public:
-    PrimeChecker(const UI repeat = 20, const UI seed = 1): repeat_(repeat), seed_(seed) {}
+    PrimeChecker(const UI repeat = 30, const UI seed = 1): repeat_(repeat), seed_(seed) {}
 
     // If n is prime, the function will always return true.
     // If n is even composite, the function will always return false.
