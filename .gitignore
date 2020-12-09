@@ -1,0 +1,6 @@
+contests/*
+*.gch
+*.txt
+*.o
+__pycache__/*
+*.swp
