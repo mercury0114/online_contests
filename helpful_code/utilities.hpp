@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>
 #include <numeric>
 #include <limits>
@@ -52,18 +54,4 @@ pair<T,T> MinCoordinates(const pair<T,T>& p1, const pair<T,T>& p2) {
 template<typename T>
 pair<T,T> MaxCoordinates(const pair<T,T>& p1, const pair<T,T>& p2) {
     return make_pair(max<T>(p1.first, p2.first), max<T>(p1.second, p2.second));
-}
-
-VVI Vector2D(const UI outer_size, const UI inner_size, const int init_value = 0) {
-    return VVI(outer_size, VI(inner_size, init_value));
-}
-
-vector<VVI> Vector3D(const UI size1, const UI size2, const UI size3,
-        const int init_value = 0) {
-    return vector<VVI>(size1, Vector2D(size2, size3, init_value));
-}
-
-template<typename T>
-T Add(const vector<T>& v, const T initial = 0) {
-    return accumulate(v.begin(), v.end(), initial);
 }

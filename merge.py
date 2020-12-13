@@ -23,7 +23,9 @@ def Add(fileName, addedFiles, includeSet, usingSet, mergedCode):
         if (line.find("using") != -1):
             usingSet.add(line)
             continue
-        mergedCode.append(line)
+        if (line.find("#pragma once") == -1):
+            mergedCode.append(line)
+            continue
 
 firstFile = sys.argv[1]
 addedFiles = set()
@@ -37,6 +39,13 @@ for line in sorted(list(includeSet)):
     output.write(line)
 for line in sorted(list(usingSet)):
     output.write(line)
+
+lastEmpty = False
 for line in mergedCode:
-    output.write(line)
+    if (not lastEmpty or len(line) > 1):
+        output.write(line)
+    if (len(line) == 1):
+        lastEmpty = True
+    else:
+        lastEmpty = False
 output.close()

@@ -1,12 +1,14 @@
+#pragma once
+
 #include <vector>
 #include <helpful_code/checks.hpp>
+#include <helpful_code/io.hpp>
 #include <helpful_code/typedefs.hpp>
 #include <helpful_code/utilities.hpp>
 
 using std::pair;
 using std::vector;
 
-template<typename T>
 class FenwickTree {
 public:
     // time: O(1)
@@ -15,7 +17,7 @@ public:
 
     // time: O(log(largest_element))
     // space: O(1)
-    void Add(UI element, T count) {
+    void Add(UI element, LL count) {
         CheckValidIndex(element, tree_);
         while (element < tree_.size()) {
             tree_[element] += count;
@@ -27,9 +29,9 @@ public:
     // returns count[1] + count[2] + ... + count[up_to]
     // time: O(log(up_to))
     // space: O(1)
-    T SumUpTo(UI up_to) const {
+    LL SumUpTo(UI up_to) const {
         CheckValidIndex(up_to, tree_);
-        T sum = 0;
+        LL sum = 0;
         while (up_to > 0) {
             sum += tree_[up_to];
             up_to -= LastBit(up_to);
@@ -39,7 +41,7 @@ public:
 
     // time: O(log(from))
     // space: O(1)
-    T SumFrom(const UI from) const {
+    LL SumFrom(const UI from) const {
         if (from == 0) {
             printf("ERROR: from can't be 0\n");
             exit(EXIT_FAILURE);
@@ -51,14 +53,13 @@ private:
         return element & (-element);
     }
 
-    T sum_all_ = 0;
+    LL sum_all_ = 0;
     // tree_ is indexed from 1
-    vector<T> tree_;
+    vector<LL> tree_;
 };
 
 // Implemented for K = 2 dimensions
 // N = points_.size(), the number of points a tree stores (see comments below)
-template<typename T>
 class KDTree {
 public:
     // time: O(N*log(N)*log(N))
@@ -66,7 +67,7 @@ public:
     // Note: to improve the time complexity to O(N), remove the "sort" in the Construct method.
     // Eliminating sort does not break the correctness! This will, however, increase the Count method
     // worst case complexity from O(sqrt(N)) to O(N), although the worst case is rarely observed.
-    KDTree(const vector<pair<T, T>>& points): points_(points),
+    KDTree(const vector<PLL>& points): points_(points),
                                               min_coordinates_(points),
                                               max_coordinates_(points) {
         CheckNotEmpty(points);
@@ -75,7 +76,7 @@ public:
 
     // time: O(sqrt(N)) worst case, O(log(N)) average case
     // space: O(log(N))
-    UI Count(const pair<T,T>& from) const {
+    LL Count(const PLL& from) const {
         return Count(from, 0, points_.size()-1);
     }
 
@@ -94,7 +95,7 @@ private:
 
     struct Comparator {
         Comparator(Coordinate coordinate): coordinate_(coordinate) {}
-        bool operator() (const pair<T,T>& p1, const pair<T,T>& p2) const {
+        bool operator() (const PLL& p1, const PLL& p2) const {
             switch (coordinate_) {
                 case X:
                     return p1.first < p2.first;
@@ -105,8 +106,8 @@ private:
         const Coordinate coordinate_;
     };
 
-    UI Count(const pair<T,T>& range, const UI begin, const UI end) const {
-        CheckNotGreater(begin, end);
+    LL Count(const PLL& range, const UI begin, const UI end) const {
+        CheckLessEq(begin, end);
         if (begin == end) {
             return (points_[begin].first >= range.first and points_[begin].second >= range.second);
         }
@@ -124,8 +125,8 @@ private:
         return Count(range, begin, middle) + Count(range, middle+1, end);
     }
 
-    pair<pair<T,T>, pair<T,T>> Construct(Coordinate coordinate, UI begin, UI end) {
-        CheckNotGreater(begin, end);
+    pair<PLL, PLL> Construct(Coordinate coordinate, UI begin, UI end) {
+        CheckLessEq(begin, end);
         if (begin == end) {
             return make_pair(points_[begin], points_[begin]);
         }
@@ -135,14 +136,14 @@ private:
 
         const Coordinate next_coordinate = (coordinate == X) ? Y : X;
         const UI middle = (begin + end) / 2;
-        pair<pair<T,T>,pair<T,T>> left = Construct(next_coordinate, begin, middle);
-        pair<pair<T,T>,pair<T,T>> right = Construct(next_coordinate, middle+1, end);
+        pair<PLL, PLL> left = Construct(next_coordinate, begin, middle);
+        pair<PLL, PLL> right = Construct(next_coordinate, middle+1, end);
         min_coordinates_[middle] = MinCoordinates(left.first, right.first);
         max_coordinates_[middle] = MaxCoordinates(left.second, right.second);
         return make_pair(min_coordinates_[middle], max_coordinates_[middle]);
     }
 
-    vector<pair<T,T>> points_;
-    vector<pair<T,T>> min_coordinates_;
-    vector<pair<T,T>> max_coordinates_;
+    vector<PLL> points_;
+    vector<PLL> min_coordinates_;
+    vector<PLL> max_coordinates_;
 };
