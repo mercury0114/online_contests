@@ -5,6 +5,3 @@ a.out
 __pycache__/*
 *.swp
 final.cpp
-
-contests/*
-!contests/example/*
