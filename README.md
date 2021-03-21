@@ -1,6 +1,6 @@
 For online coding contests, such as Google KickStart.
 
-The following is an example usage how to run the code for the first problem in the contest
+The following is an example usage how to run the code for the first problem in the contest:
 ```shell
 ./cpp_run.sh example_contest 1
 ```
