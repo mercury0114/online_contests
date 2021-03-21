@@ -18,12 +18,12 @@ void CheckLess(const LL a, const LL b) {
 
 void CheckLessEq(const LL a, const LL b) {
     if (a > b) {
-        cout << "ERROR: not" << a << " <= " << b << endl;
+        cout << "ERROR: not " << a << " <= " << b << endl;
         exit(EXIT_FAILURE);
     }
 }
 
-void CheckValidIndex(const LL index, const VL& v) {
+void CheckValidIndex(const LL index, const VLL& v) {
     if (index >= v.size() || index < 0) {
         cout << "ERROR: " << index << " out of range [0, " << v.size()-1 << "]" << endl;
         exit(EXIT_FAILURE);

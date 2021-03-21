@@ -1,7 +1,10 @@
-contests/*
+a.out
 *.gch
 *.txt
 *.o
 __pycache__/*
 *.swp
 final.cpp
+
+contests/*
+!contests/example/*
