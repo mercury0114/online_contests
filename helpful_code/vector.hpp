@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <numeric>
+#include <helpful_code/checks.hpp>
 #include <helpful_code/typedefs.hpp>
 
 using std::sort;
@@ -15,8 +16,6 @@ vector<vector<vector<T>>> Vector3D(const LL size1, const LL size2, const LL size
         const T init_value = 0) {
     return vector<vector<vector<T>>>(size1, Vector2D(size2, size3, init_value));
 }
-
-
 
 template<typename T>
 T Min(const vector<T>& v) {
