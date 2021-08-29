@@ -20,3 +20,7 @@ g++ tests/trees_test.cpp -I.
 echo "utilities_test.cpp"
 g++ tests/utilities_test.cpp -I.
 ./a.out
+
+echo "graph_test.cpp"
+g++ tests/graph_test.cpp -I.
+./a.out
